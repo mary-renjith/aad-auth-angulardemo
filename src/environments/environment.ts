@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  postLogoutUrl:"http://localhost:4200"
+  postLogoutUrl:"https://mary-renjith.github.io/aad-auth-angulardemo/"
 };
 
 /*
