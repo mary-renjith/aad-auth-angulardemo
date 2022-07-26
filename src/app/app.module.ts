@@ -43,7 +43,7 @@ const IsIE=window.navigator.userAgent.indexOf('MSIE')>1
         cache:
         {
           cacheLocation:'localstorage',
-          storeAuthStateInCookie:true
+          storeAuthStateInCookie:IsIE
         }
       }
     ),
