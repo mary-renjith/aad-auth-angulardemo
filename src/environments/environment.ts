@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  postLogoutUrl:"https://mary-renjith.github.io/aad-auth-angulardemo/"
+  postLogoutUrl:"https://mary-renjith.github.io/aad-auth-angulardemo"
 };
 
 /*
