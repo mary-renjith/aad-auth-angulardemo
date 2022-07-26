@@ -2,7 +2,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent } from '@azure/msal-angular';
-import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
+import { BrowserCacheLocation, InteractionType, PublicClientApplication } from '@azure/msal-browser';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -42,8 +42,8 @@ const IsIE=window.navigator.userAgent.indexOf('MSIE')>1
         },
         cache:
         {
-          cacheLocation:'localstorage',
-          storeAuthStateInCookie:IsIE
+          cacheLocation:BrowserCacheLocation.LocalStorage,
+          storeAuthStateInCookie:true
         }
       }
     ),
