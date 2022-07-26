@@ -36,9 +36,9 @@ const IsIE=window.navigator.userAgent.indexOf('MSIE')>1
     MsalModule.forRoot(new PublicClientApplication(
       {
         auth:{
-          clientId:'e474d1a1-1285-4abb-8ad4-cceafd37b032',
+          clientId:'90d13751-82af-4858-9b2f-c2649459bf0a',
           redirectUri:'http://localhost:4200',
-          authority:'https://login.microsoftonline.com/a86bc255-9bb7-4ee8-b30a-51fba84872aa'
+          authority:'https://login.microsoftonline.com/0ed85e9b-bc53-4b19-84c1-de5207a9ae82'
         },
         cache:
         {
