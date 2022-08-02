@@ -19,14 +19,14 @@ export class AppComponent implements OnInit,OnDestroy  {
   private msalBroadCastService:MsalBroadcastService,
   private authservice:MsalService,private azureAddDemoService:AzureaddemoService)
   {
-    
+    if(!this.isUserLoggedIn)
+    {
+      this.login();
+    }
   }
  
   ngOnInit(): void {
-    // if(!this.isUserLoggedIn)
-    // {
-    //   this.login();
-    // }
+   
     this.msalBroadCastService.inProgress$.pipe(
       filter((interactionStatus:InteractionStatus)=>
       interactionStatus==InteractionStatus.None),
