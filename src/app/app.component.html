@@ -1,7 +1,11 @@
 <mat-toolbar class="mat-elevation-z4" color="primary">
-  <a href="/" class ="title">AzureLearn.Net</a>
+  <!-- <a href="/" class ="title">Skill Portal</a> -->
+  <div>
+    <!-- <mat-icon aria-hidden="true" aria-label="" fontIcon="home"></mat-icon> -->
+    <h1>Skill Portal</h1>
+  </div>  
 <div class="toolbar-spacer"></div>
-  <a mat-button [routerLink]="['profile']">Profile</a>
+  <a mat-button  *ngIf="isUserLoggedIn" [routerLink]="['profile']">Profile</a>
   <button mat-raised-button *ngIf="!isUserLoggedIn" (click)="login()">Login</button>
   <button mat-raised-button *ngIf="isUserLoggedIn" (click)="logout()">Logout</button>
 </mat-toolbar>
