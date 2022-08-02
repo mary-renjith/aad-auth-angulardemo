@@ -42,7 +42,7 @@ const IsIE=window.navigator.userAgent.indexOf('MSIE')>1
       {
         auth:{
           clientId:'63e3ddc8-ed9f-43fb-b9a9-47bbf33c7687',
-          redirectUri:'http://localhost:4200',
+          redirectUri:'https://mary-renjith.github.io/aad-auth-angulardemo/',
           authority:'https://login.microsoftonline.com/892883b0-47de-49df-b683-d0a83e9bb1fd'
         },
         cache:
