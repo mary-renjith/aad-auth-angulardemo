@@ -15,7 +15,7 @@ import { JsonTypes } from '@azure/msal-common/dist/utils/Constants';
 export class ListSkillsComponent implements OnInit {
 
   listSkills! : Observable<any>;
-  displayedColumns: string[] = ['SkillName', 'SkillLevel', 'SkillYrsOfExp'];
+  displayedColumns = ['SkillName', 'SkillLevel', 'SkillYrsOfExp'];
   dataSource = this.listSkills;
   constructor(private skillService: SkillService) { }
  

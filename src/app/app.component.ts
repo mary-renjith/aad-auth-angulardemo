@@ -12,6 +12,10 @@ import { AzureaddemoService } from './azureaddemo.service';
 })
 export class AppComponent implements OnInit,OnDestroy  {
   
+<<<<<<< HEAD
+=======
+  title:string='';
+>>>>>>> 5048f217d3fc5cc67bc05aa4f76bc3cf9164adff
   isUserLoggedIn:boolean=false;
   title:string="";
   private readonly _destroy=new Subject<void>();
@@ -19,13 +23,25 @@ export class AppComponent implements OnInit,OnDestroy  {
   private msalBroadCastService:MsalBroadcastService,
   private authservice:MsalService,private azureAddDemoService:AzureaddemoService)
   {
+<<<<<<< HEAD
     
+=======
+    if(!this.isUserLoggedIn)
+    {
+      this.login();
+    }
+>>>>>>> 5048f217d3fc5cc67bc05aa4f76bc3cf9164adff
   }
+ 
   ngOnInit(): void {
+<<<<<<< HEAD
     // if(!this.isUserLoggedIn)
     // {
     //   this.login();
     // }
+=======
+   
+>>>>>>> 5048f217d3fc5cc67bc05aa4f76bc3cf9164adff
     this.msalBroadCastService.inProgress$.pipe(
       filter((interactionStatus:InteractionStatus)=>
       interactionStatus==InteractionStatus.None),
@@ -36,6 +52,7 @@ export class AppComponent implements OnInit,OnDestroy  {
           this.azureAddDemoService.isUserLoggedIn.next(this.isUserLoggedIn);
         })
   }
+ 
   ngOnDestroy(): void {
     this._destroy.next(undefined);
     this._destroy.complete();
