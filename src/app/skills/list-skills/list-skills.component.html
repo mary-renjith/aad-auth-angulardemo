@@ -1,0 +1,63 @@
+
+<!-- <ul>
+    <li *ngFor="let skill of listSkills | async">
+        {{skill.SkillName}}
+    </li>
+</ul> -->
+
+<!-- <table>
+    <th>Skill Name</th>
+    <th>Skill Level</th>
+    <th>Exp(yrs)</th>
+    <tr *ngFor="let item of listSkills | async">        
+        <td>
+            {{ item.SkillName }}
+        </td> 
+        <td>
+            {{ item.SkillLevel }}
+        </td> 
+        <td>
+            {{ item.SkillYrsOfExp }}
+        </td>                    
+    </tr>
+</table> -->
+<div class="main-content">
+    <!-- <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let skill of listSkills | async">
+             {{skill.SkillName}}   {{skill.SkillLevel}}  {{skill.SkillYrsOfExp}}
+             
+        </mat-list-item>    
+    </mat-list> -->
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="SkillName">
+          <th mat-header-cell *matHeaderCellDef> Skill Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.SkillName} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="SkillLevel">
+          <th mat-header-cell *matHeaderCellDef> Skill Level </th>
+          <td mat-cell *matCellDef="let element"> {{element.SkillLevel} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="SkillYrsOfExp">
+          <th mat-header-cell *matHeaderCellDef> Yrs(Exp) </th>
+          <td mat-cell *matCellDef="let element"> {{element.SkillYrsOfExp} </td>
+        </ng-container>
+      
+      
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+      
+</div>
+
