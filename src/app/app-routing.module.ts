@@ -15,15 +15,14 @@ const routes: Routes = [
   //   component:ProfileComponent,
   //   canActivate:[MsalGuard]
   // },
-  // {
-  //   path:'',
-  //   component:HomeComponent
-  // }
+  {
+    path:'',
+    component:HomeComponent
+  },
   {
     path:'create',component:CreateSkillComponent,canActivate:[MsalGuard]
   },
   {
-<<<<<<< HEAD
     path:'view/:id',component:ViewSkillComponent,canActivate:[MsalGuard]
   },
   {
@@ -35,12 +34,6 @@ const routes: Routes = [
   {
     path:'delete',component:DeleteSkillComponent,canActivate:[MsalGuard]
   },
-=======
-    path:'',
-    component:HomeComponent
-  }
- 
->>>>>>> 5048f217d3fc5cc67bc05aa4f76bc3cf9164adff
 ];
 
 @NgModule({
