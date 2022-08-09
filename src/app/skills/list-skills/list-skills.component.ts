@@ -15,18 +15,25 @@ import { JsonTypes } from '@azure/msal-common/dist/utils/Constants';
 export class ListSkillsComponent implements OnInit {
 
   listSkills! : any;
-  displayedColumns = ['SkillName', 'SkillLevel', 'SkillYrsOfExp'];
-  dataSource = this.listSkills;
+  displayedColumns = ['SkillName', 'SkillLevel', 'SkillYrsOfExp','actions'];
+  dataSource = this.listSkills; 
+ 
+
   constructor(private skillService: SkillService) { }
  
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {    
     // this.listSkills this.skillService.listskill();
     this.skillService.listskill().subscribe((data: any) => {
       this.dataSource=new  MatTableDataSource(data)
-  });
+      
+  });  }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+
+  
 }

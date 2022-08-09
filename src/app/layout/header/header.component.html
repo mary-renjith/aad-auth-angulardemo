@@ -10,7 +10,10 @@
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
       <mat-icon>share</mat-icon>
     </button> -->
-    <button mat-raised-button *ngIf="!isUserLoggedIn" (click)="login()">Login</button>
-    <button mat-raised-button *ngIf="isUserLoggedIn" (click)="logout()">Logout</button>
+    <!-- <button mat-raised-button *ngIf="isUserLoggedIn"  [routerLink]="'profile'">Profile</button> -->
+   
+    <!-- <a mat-button  *ngIf="isUserLoggedIn" [routerLink]="['profile']">Profile</a> -->
+    <!-- <button mat-raised-button *ngIf="!isUserLoggedIn" (click)="login()">Login</button> -->
+    <!-- <button mat-raised-button *ngIf="isUserLoggedIn" (click)="logout()">Logout</button> -->
   </mat-toolbar>
 

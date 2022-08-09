@@ -1,1 +1,44 @@
-<p>create-skill works!</p>
+<mat-card class="addNewSkill">
+    <mat-card-title>Add New Skill</mat-card-title>
+    <mat-content>
+        <form [formGroup]="addSkillForm" (submit)="createSkill()">
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Select Skill</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let list of listSkillNames" [value]="list.SkillId">
+                      {{list.SkillName}}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-label>Skill Level</mat-label>
+            <mat-divider class="classdivider"></mat-divider>
+                <mat-slider 
+                  thumbLabel
+                  [displayWith]="formatLabel"
+                  tickInterval="1000"
+                  step="1"
+                  min="1"
+                  max="4"
+                  aria-label="units">
+                </mat-slider>     
+            
+          </p>
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Select Exp(Yrs)</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let year of years|keyvalue" [value]="year.value">
+                  {{year.key}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </p>
+          <p>
+            <button mat-raised-button>Add Skill</button>
+          </p>
+        </form>
+    </mat-content>
+</mat-card>

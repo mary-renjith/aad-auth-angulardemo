@@ -10,29 +10,31 @@ import { UpdateSkillComponent } from './skills/update-skill/update-skill.compone
 import { ViewSkillComponent } from './skills/view-skill/view-skill.component';
 
 const routes: Routes = [
-  // {
-  //   path:'profile',
-  //   component:ProfileComponent,
-  //   canActivate:[MsalGuard]
-  // },
+  {
+    path:'profile',
+    component:ProfileComponent
+    // ,canActivate:[MsalGuard]
+  },
   {
     path:'',
-    component:HomeComponent
+    component:ListSkillsComponent
+    // ,canActivate:[MsalGuard]
   },
   {
-    path:'create',component:CreateSkillComponent,canActivate:[MsalGuard]
+    path:'create',component:CreateSkillComponent
+    // ,canActivate:[MsalGuard]
+  }, 
+  {
+    path:'list',component:ListSkillsComponent
+    // ,canActivate:[MsalGuard]
   },
   {
-    path:'view/:id',component:ViewSkillComponent,canActivate:[MsalGuard]
+    path:'update',component:UpdateSkillComponent
+    // ,canActivate:[MsalGuard]
   },
   {
-    path:'list',component:ListSkillsComponent,canActivate:[MsalGuard]
-  },
-  {
-    path:'update',component:UpdateSkillComponent,canActivate:[MsalGuard]
-  },
-  {
-    path:'delete',component:DeleteSkillComponent,canActivate:[MsalGuard]
+    path:'delete',component:DeleteSkillComponent
+    // ,canActivate:[MsalGuard]
   },
 ];
 
