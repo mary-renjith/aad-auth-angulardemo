@@ -16,13 +16,19 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
+import { DeletedialogComponent } from './deletedialog/deletedialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+
+
 @NgModule({
   declarations: [
     ListSkillsComponent,
     ViewSkillComponent,
     CreateSkillComponent,
     UpdateSkillComponent,
-    DeleteSkillComponent
+    DeleteSkillComponent,
+    DeletedialogComponent
   ],
   imports: [
     CommonModule,
@@ -31,11 +37,16 @@ import {MatSelectModule} from '@angular/material/select';
     MatSortModule,
     FormsModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     MatSliderModule,
     ReactiveFormsModule,
     MatCardModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
+  ],
+  providers:[
+   {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration:2500}} 
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

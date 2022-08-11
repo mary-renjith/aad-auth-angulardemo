@@ -1,1 +1,45 @@
-<p>update-skill works!</p>
+<mat-card class="editSkill">
+    <mat-card-title>Update Skill</mat-card-title>
+    <mat-content>
+        <form [formGroup]="editSkillForm" (submit)="editSkill()">
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Select Skill</mat-label>
+                <mat-select formControlName="SkillId" placeholder="selectSkill" [(value)]="this.defSkillId" [disabled]="true">
+                  <mat-option *ngFor="let list of dataSource" [value]="list.SkillId">
+                      {{list.SkillName}}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-label>Skill Level</mat-label>
+            <mat-divider class="classdivider"></mat-divider>
+                <mat-slider 
+                  thumbLabel
+                  [displayWith]="formatLabel"
+                  tickInterval="1000"
+                  step="1"
+                  min="1"
+                  max="4"
+                  aria-label="units" formControlName="SkillLevel">
+                </mat-slider>     
+            
+          </p>
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Select Exp(Yrs)</mat-label>
+              <mat-select formControlName="SkillYrsOfExp" [(value)]="this.defskillExp">
+                <mat-option *ngFor="let obj of jsonObject" [value]="obj.id">
+                  {{obj.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </p>          
+          <p>
+            <button mat-raised-button>Update</button>
+          </p>
+        </form>
+    </mat-content>
+</mat-card>
+
