@@ -9,11 +9,21 @@ import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { MatList } from '@angular/material/list';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import {FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 
 
 interface Years {
   value: string;
   viewValue: string;
+}
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
 }
 
 @Component({
@@ -70,7 +80,10 @@ export class CreateSkillComponent implements OnInit {
       name: "10"
     }
   ]
+   
+ 
 
+  matcher = new MyErrorStateMatcher();
 
   addSkillForm: FormGroup = new FormGroup({});
   constructor(private formBuilder: FormBuilder, 
@@ -86,10 +99,10 @@ export class CreateSkillComponent implements OnInit {
 
   ngOnInit(): void {
     this.addSkillForm = this.formBuilder.group({
-      'SkillId' : new FormControl(''),
+      'SkillId' : new FormControl('',[Validators.required]),
       'skillDetailId' : new FormControl(0),
-      'SkillLevel' : new FormControl(''),
-      'SkillYrsOfExp' : new FormControl(""),
+      'SkillLevel' : new FormControl('',[Validators.required]),
+      'SkillYrsOfExp' : new FormControl("",[Validators.required]),
       'UserEmail' : new FormControl("mary.renjith19@gmail.com"),
     });
   
@@ -118,17 +131,43 @@ export class CreateSkillComponent implements OnInit {
   }
   createSkill()
   {
-    this.skillService.addSkill(this.addSkillForm.value).subscribe({next:data => {
+    console.log(this.addSkillForm.valid);
+    if(this.addSkillForm.valid == false){
+
+      this._snackBar.open("Invalid Input");
+    }
+    else{
+      this.skillService.addSkill(this.addSkillForm.value).subscribe({next:data => {
       
-      this._snackBar.open("Skill Added Successfully");
-      this._router.navigate(['list']);
+        this._snackBar.open("Skill Added Successfully");
+        this._router.navigate(['list']);
+     
+      }, error: err => {
+        this._snackBar.open("Unable to add Skill");
+        this._router.navigate(['list']);
+        
+      }});
+      
+    }
    
-    }, error: err => {
-      this._snackBar.open("Unable to add Skill");
-      this._router.navigate(['list']);
-      
-    }});
-    
-  }  
+  } 
+  
+  someMethod(event:any)
+  {
+      //console.log(event.value);
+      this.skillService.checkSkill(event.value).subscribe({next:data => {
+        if(data == 1)
+        {
+          this._snackBar.open("Skill Already Exists");  
+          this.addSkillForm.reset();
+        }
+        
+            
+     
+      }, error: err => {
+        this._snackBar.open("Service Error");
+        
+      }});
+  }
 
 }

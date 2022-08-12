@@ -9,7 +9,17 @@ import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { MatList } from '@angular/material/list';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import {FormGroupDirective, NgForm} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-update-skill',
@@ -67,7 +77,7 @@ export class UpdateSkillComponent implements OnInit {
     }
   ]
 
-
+  matcher = new MyErrorStateMatcher();
   editSkillForm: FormGroup = new FormGroup({});
   constructor(private formBuilder: FormBuilder, 
     private skillService: SkillService,
@@ -91,7 +101,7 @@ export class UpdateSkillComponent implements OnInit {
       'SkillId' : new FormControl(''),
       'skillDetailId' : new FormControl(this.defskillDetailId),
       'SkillLevel' : new FormControl(''),
-      'SkillYrsOfExp' : new FormControl(""),
+      'SkillYrsOfExp' : new FormControl("",[Validators.required]),
       'UserEmail' : new FormControl("mary.renjith19@gmail.com"),
     });
 
@@ -125,6 +135,11 @@ export class UpdateSkillComponent implements OnInit {
   }
   editSkill()
   {
+    if(this.editSkillForm.valid == false){
+
+      this._snackBar.open("Invalid Input");
+    }
+    else{
     this.skillService.editSkill(this.editSkillForm.value).subscribe({next:data => {
       
       this._snackBar.open("Skill updated Successfully");
@@ -135,6 +150,7 @@ export class UpdateSkillComponent implements OnInit {
       this._router.navigate(['list']);
       
     }});
+  }
     
   }  
 

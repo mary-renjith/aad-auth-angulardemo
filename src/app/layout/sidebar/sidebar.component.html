@@ -3,10 +3,13 @@
 </div> -->
 <mat-list role="list">
     <mat-list-item role="listitem">
-        <a [routerLink]="'list'">List Skill</a>
+        <!-- <a [routerLink]="'list'">List Skill</a> -->
+        <!-- <button mat-raised-button color="primary">Primary</button> -->
+        <button mat-raised-button (click)="redirectListSkill()">Skills Details</button>
         
     </mat-list-item>
     <mat-list-item role="listitem">
-        <a  [routerLink]="'create'">Add Skill</a>
+        <!-- <a  [routerLink]="'create'">Add Skill</a> -->
+        <button mat-raised-button (click)="redirectAddSkill()">Certifications</button>
     </mat-list-item>   
 </mat-list>

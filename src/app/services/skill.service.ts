@@ -14,8 +14,8 @@ const httpOptions = {
 
 export class SkillService {
  
-  // baseUrl: string ='http://localhost:5288/api/Skill/api/';
-  baseUrl: string =' https://skillportalwebapi.azurewebsites.net/api/Skill/api/';
+   //baseUrl: string ='http://localhost:5288/api/Skill/api/';
+   baseUrl: string =' https://skillportalwebapi.azurewebsites.net/api/Skill/api/';
  
   constructor(private http: HttpClient) { }
   listskill(){
@@ -51,4 +51,10 @@ export class SkillService {
     //console.log(body);
     return this.http.post(this.baseUrl + 'AddSkillDetails/'+body,body,httpOptions);    
   }
+
+  checkSkill(skillId:any){
+
+    const body= '?UserId=mary.renjith19@gmail.com&skillId='+skillId;
+    return this.http.get(this.baseUrl + 'checkSkillAdded/' + body);
+}
 }

@@ -71,7 +71,10 @@ export class ListSkillsComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
+  redirectToAddSkill()
+  {
+    this._router.navigate(['create']);
+  }
 
   
 }

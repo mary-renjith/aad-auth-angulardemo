@@ -1,8 +1,14 @@
+
+
 <div class="main-content">  
       <mat-form-field appearance="standard">
         <mat-label>Find</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-      </mat-form-field>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input> 
+      </mat-form-field>       
+      
+      |<button mat-raised-button (click)="redirectToAddSkill()" class="demo-button">
+          Add Skill
+        </button>
       
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       

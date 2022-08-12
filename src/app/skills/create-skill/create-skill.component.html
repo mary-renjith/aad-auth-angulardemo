@@ -5,11 +5,16 @@
           <p>
             <mat-form-field appearance="fill">
               <mat-label>Select Skill</mat-label>
-                <mat-select formControlName="SkillId">
+                <mat-select formControlName="SkillId" [errorStateMatcher]="matcher" (selectionChange)="someMethod($event)">
                   <mat-option *ngFor="let list of dataSource" [value]="list.SkillId">
                       {{list.SkillName}}
                   </mat-option>
               </mat-select>
+              <mat-hint>Errors appear instantly!</mat-hint>
+              <mat-error *ngIf="addSkillForm.hasError('required')">You must make a selection</mat-error>
+              <mat-error *ngIf="addSkillForm.hasError('pattern') && !addSkillForm.hasError('required')">
+                Your selection is invalid
+              </mat-error>
             </mat-form-field>
           </p>
           <p>
