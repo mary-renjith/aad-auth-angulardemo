@@ -18,6 +18,7 @@ import { AzureaddemoService } from './azureaddemo.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { LayoutModule } from './layout/layout.module';
+import { ExamsModule } from './exams/exams.module';
 import { SkillsModule } from './skills/skills.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
@@ -35,6 +36,7 @@ const IsIE=window.navigator.userAgent.indexOf('MSIE')>1
     CommonModule,
     LayoutModule,
     SkillsModule,
+    ExamsModule,
     HttpClientModule,
     AppRoutingModule,
     MatSidenavModule,

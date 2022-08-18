@@ -1,0 +1,60 @@
+<mat-card class="editCertifications">
+    <mat-card-title>Update Certification</mat-card-title>
+    <mat-content>
+        <form [formGroup]="editCertificationForm" (submit)="editExam()">
+          <p>
+            <mat-form-field appearance="fill" class="skillName">
+              <mat-label>Select Skill</mat-label>
+                <mat-select formControlName="SkillDetailId" placeholder="selectSkill" [(value)]="this.defskillDetailId" [disabled]="true">
+                  <mat-option *ngFor="let list of dataSource" [value]="list.SkillId">
+                      {{list.SkillName}}
+                  </mat-option>
+              </mat-select>
+              <mat-error *ngIf="editCertificationForm.hasError('required')">You must make a selection</mat-error>
+              <mat-error *ngIf="editCertificationForm.hasError('pattern') && !editCertificationForm.hasError('required')">
+                Your selection is invalid
+              </mat-error>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Certification Name</mat-label>
+                <input matInput formControlName="ExamName" autocomplete="off"  [(ngModel)]="this.defExamName" type="text">
+            </mat-form-field>
+            
+          </p>
+          <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Certification Date
+                </mat-label>
+                <input matInput  [matDatepicker]="dp1" formControlName="ExamDate" type="text"  [(ngModel)]="this.defExamDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </p>     
+          <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Expiry Date</mat-label>
+                <input matInput [matDatepicker]="dp2" formControlName="ExpiryDate" type="text"  [(ngModel)]="this.defExpiryDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+                <mat-datepicker #dp2 disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </p>  
+          <!-- <p>
+                <mat-label> Certificate Upload</mat-label>
+                <br>
+                <input type="file" formControlName="CertificateImage"  (change)="onFileSelected($event)"  accept="image/*">
+      
+            
+          </p>         -->
+          <p>
+                <button mat-raised-button>Update</button>
+           
+           
+          </p>
+        </form>
+    </mat-content>
+</mat-card>
+

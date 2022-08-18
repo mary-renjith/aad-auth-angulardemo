@@ -104,10 +104,7 @@ export class CreateSkillComponent implements OnInit {
       'SkillLevel' : new FormControl('',[Validators.required]),
       'SkillYrsOfExp' : new FormControl("",[Validators.required]),
       'UserEmail' : new FormControl("mary.renjith19@gmail.com"),
-    });
-  
-
- 
+    }); 
     this.listSkillNames=this.skillService.listSkillName().subscribe((data:any)=>{
     this.dataSource=data;
    });

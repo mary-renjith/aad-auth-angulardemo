@@ -16,9 +16,9 @@ export class SidebarComponent implements OnInit {
   redirectListSkill(){
     this._router.navigate(['list']);
   }
-  redirectAddSkill()
+  redirectListExam()
   {
-    //this._router.navigate(['create']);
+    this._router.navigate(['listExam']);
   }
 
 }

@@ -1,0 +1,59 @@
+<mat-card class="addCertifications">
+    <mat-card-title>Add Certification</mat-card-title>
+    <mat-content>
+        <form [formGroup]="addCertificationForm" (submit)="createExam()">
+          <p>
+            <mat-form-field appearance="fill" class="skillName">
+              <mat-label>Select Skill</mat-label>
+                <mat-select formControlName="skillDetailId" [errorStateMatcher]="matcher">
+                  <mat-option *ngFor="let list of dataSource" [value]="list.SkillId">
+                      {{list.SkillName}}
+                  </mat-option>
+              </mat-select>
+              <mat-error *ngIf="addSkillForm.hasError('required')">You must make a selection</mat-error>
+              <mat-error *ngIf="addSkillForm.hasError('pattern') && !addSkillForm.hasError('required')">
+                Your selection is invalid
+              </mat-error>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="examcName" appearance="fill">
+                <mat-label>Certification Name</mat-label>
+                <input matInput formControlName="examName">
+            </mat-form-field>
+            
+          </p>
+          <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Certification Date
+                </mat-label>
+                <input matInput  [matDatepicker]="dp1" formControlName="examDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </p>     
+          <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Expiry Date</mat-label>
+                <input matInput [matDatepicker]="dp2" formControlName="expiryDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+                <mat-datepicker #dp2 disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </p>  
+          <!-- <p>
+                <mat-label> Certificate Upload</mat-label>
+                <br>
+                <input type="file" formControlName="certificateImage"  (change)="onFileSelected($event)" accept="image/*">
+      
+            
+          </p>         -->
+          <p>
+                <button mat-raised-button>Add</button>
+           
+           
+          </p>
+        </form>
+    </mat-content>
+</mat-card>
