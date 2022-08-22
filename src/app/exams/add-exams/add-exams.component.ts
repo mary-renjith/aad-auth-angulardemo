@@ -31,9 +31,15 @@ export class AddExamsComponent implements OnInit {
   
   value: any = 'Clear me';
   listSkillNames! : any;
-  fileName = '';
+  fileName:any="";
+  image:any="";
   dataSource:any;
   matcher = new MyErrorStateMatcher();
+
+  imageError: any;
+  isImageSaved: any;
+  cardImageBase64: any;
+
 
   addSkillForm: FormGroup = new FormGroup({});
  
@@ -54,8 +60,8 @@ export class AddExamsComponent implements OnInit {
       'examDate' : new FormControl("",[Validators.required]),
       'expiryDate' : new FormControl("",[Validators.required]),
       'examName' : new FormControl("",[Validators.required]),
-      'fileName' : new FormControl(""),
-      'certificateImage' : new FormControl("img"),
+      'fileName' : new FormControl(this.fileName),
+      'certificateImage' : new FormControl(this.image),
       'userEmail' : new FormControl("mary.renjith19@gmail.com"),
     }); 
 
@@ -71,22 +77,46 @@ export class AddExamsComponent implements OnInit {
 
   onFileSelected(event: any) {
     const file:File = event.target.files[0];
-    if (file) {
-        this.fileName = file.name;
+    this.fileName=file.name;
+    var myReader:FileReader=new FileReader();
 
-        //const formData = new FormData();
-
-        //formData.append("thumbnail", file);
-        console.log(file,this.fileName);
+    myReader.onloadend=(e)=>{
+      
+      this.image=myReader.result;
+      // var imagestr = this.image.split(',')[1];
+      // this.image=imagestr;
     }
+    myReader.readAsDataURL(file);
+    
   }
+  
 
   createExam()
   {
-    console.log(this.addCertificationForm.valid);
-    if(this.addCertificationForm.valid == false){
+    console.log(this.image);
+    this.addCertificationForm.controls['certificateImage'].setValue(this.image);
+    this.addCertificationForm.controls['fileName'].setValue(this.fileName);
+    const fromDate = this.addCertificationForm.controls['examDate'].value;
+    const toDate = this.addCertificationForm.controls['expiryDate'].value;
 
+    var today = new Date();
+    console.log(this.addCertificationForm.value);
+    if(this.addCertificationForm.valid == false){
+ 
       this._snackBar.open("Invalid Input");
+    }
+    else if ((fromDate !== null && toDate !== null) && fromDate > toDate){
+     
+      this._snackBar.open("Expiry date should be greater than certification date");
+      
+    }
+    else if(today>toDate)
+    {
+      this._snackBar.open("Expiry date should be greater than today");
+    }
+    else if(fromDate>today)
+    {
+      this._snackBar.open("Certification date should not be greater than today");
     }
     else{
       this.skillService.addExam(this.addCertificationForm.value).subscribe({next:data => {

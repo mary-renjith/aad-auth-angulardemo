@@ -31,13 +31,16 @@ export class EditExamsComponent implements OnInit {
 
   value: any = 'Clear me';
   listSkillNames! : any;
-  fileName = '';
+  fileName = "";
+  image:any="";
   dataSource:any;
   defskillDetailId:any;
   defExamDetailId:any;
   defExamName: any;
   defExamDate: any;
   defExpiryDate:any;
+  defImg:any;
+  defname: any;
 
   matcher = new MyErrorStateMatcher();
 
@@ -61,7 +64,9 @@ export class EditExamsComponent implements OnInit {
     this.defExamName=history.state.examName;
     this.defExamDate=history.state.examDate;
     this.defExpiryDate=history.state.expiryDate;
-
+    this.defImg=history.state.certificateImage;
+    this.defname=history.state.fname;
+    console.log(this.defname);
     //  console.log(this.defskillDetailId,this.defExamDetailId,this.defExamName,this.defExamDate);
     this.editCertificationForm = this.formBuilder.group({
       'ExamDetailId' : new FormControl(this.defExamDetailId),
@@ -70,8 +75,8 @@ export class EditExamsComponent implements OnInit {
       'ExamDate' : new FormControl('',[Validators.required]),
       'ExpiryDate' : new FormControl('',[Validators.required]),
       'ExamName' : new FormControl('',[Validators.required]),
-      'FileName' : new FormControl(''),
-      'CertificateImage' : new FormControl("img"),
+      'FileName' : new FormControl(this.fileName),
+      'CertificateImage' : new FormControl(this.image),
       'UserEmail' : new FormControl("mary.renjith19@gmail.com"),
     }); 
 
@@ -85,19 +90,47 @@ export class EditExamsComponent implements OnInit {
 
   onFileSelected(event: any) {
     const file:File = event.target.files[0];
-    if (file) {
-        this.fileName = file.name;
+    this.fileName=file.name;
+    var myReader:FileReader=new FileReader();
 
-        //const formData = new FormData();
-
-        //formData.append("thumbnail", file);
-       // console.log(file,this.fileName);
+    myReader.onloadend=(e)=>{
+      
+      this.image=myReader.result;
+      // var imagestr = this.image.split(',')[1];
+      // this.image=imagestr;
     }
+    myReader.readAsDataURL(file);
   }
 
   editExam()
   {
     //console.log(this.editCertificationForm.valid);
+    this.editCertificationForm.controls['CertificateImage'].setValue(this.image);
+    this.editCertificationForm.controls['FileName'].setValue(this.fileName);
+
+    const fromDate = this.editCertificationForm.controls['ExamDate'].value;
+    const toDate = this.editCertificationForm.controls['ExpiryDate'].value;
+
+    var today = new Date();
+
+    if(this.editCertificationForm.valid == false){
+ 
+      this._snackBar.open("Invalid Input");
+    }
+    else if ((fromDate !== null && toDate !== null) && fromDate > toDate){
+     
+      this._snackBar.open("Expiry date should be greater than certification date");
+      
+    }
+    else if(today>toDate)
+    {
+      this._snackBar.open("Expiry date should be greater than today");
+    }
+    else if(fromDate>today)
+    {
+      this._snackBar.open("Certification date should not be greater than today");
+    }
+    
     if(this.editCertificationForm.valid == false){
 
       this._snackBar.open("Invalid Input");

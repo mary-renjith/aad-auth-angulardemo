@@ -8,6 +8,7 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DeleteExamDialogComponent } from '../delete-exam-dialog/delete-exam-dialog.component';
 import { LOCALE_ID, NgModule } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-list-exams',
@@ -19,7 +20,7 @@ export class ListExamsComponent implements OnInit {
   listSkills! : any;
   examId: any;
   state:any;
-  displayedColumns = ['examName', 'skillName', 'examDate','expiryDate','actions'];
+  displayedColumns = ['examName', 'skillName', 'examDate','expiryDate','CertificateImage','actions'];
   dataSource = this.listSkills; 
  
 
@@ -28,9 +29,9 @@ export class ListExamsComponent implements OnInit {
     private _router: Router) {
 
    }
-   redirectToEditExam(skillDetailId: string , examDetailId:string , examName:string , examDate: string, expiryDate: string){
+   redirectToEditExam(skillDetailId: string , examDetailId:string , examName:string , examDate: string, expiryDate: string,img:string,fname:string){
     console.log(skillDetailId,examDetailId,examName);
-    this._router.navigate(['editExam'],{state:{skillDetailId,examDetailId,examName,examDate,expiryDate}});
+    this._router.navigate(['editExam'],{state:{skillDetailId,examDetailId,examName,examDate,expiryDate,img,fname}});
    }
 
    openDialog(enterAnimationDuration: string, exitAnimationDuration: string,examId: string): void {
@@ -64,7 +65,7 @@ export class ListExamsComponent implements OnInit {
     // this.listSkills this.skillService.listskill();
     this.skillService.listExam().subscribe((data: any) => {
       this.dataSource=new  MatTableDataSource(data)
-      console.log(this.dataSource);
+     
       
   });  }
 
@@ -78,6 +79,21 @@ export class ListExamsComponent implements OnInit {
   }
 
   
+  formatDate()
+  {
 
+  }
+
+  getURL(img:any){
+    let reader = new FileReader(); //you need file reader for read blob data to base64 image data.
+    reader.addEventListener("load", () => {
+       return reader.result; // here is the result you got from reader
+    }, false);
+ 
+    if (img) {
+       reader.readAsDataURL(img);
+    }
+
+  }
 
 }

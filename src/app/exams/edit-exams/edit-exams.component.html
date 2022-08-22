@@ -42,13 +42,13 @@
                 <mat-datepicker #dp2 disabled="false"></mat-datepicker>
             </mat-form-field>
           </p>  
-          <!-- <p>
+          <p>
                 <mat-label> Certificate Upload</mat-label>
                 <br>
-                <input type="file" formControlName="CertificateImage"  (change)="onFileSelected($event)"  accept="image/*">
+                <input type="file"   (change)="onFileSelected($event)" [value]="this.image" accept="image/png,image/jpeg">
       
             
-          </p>         -->
+          </p>        
           <p>
                 <button mat-raised-button>Update</button>
            

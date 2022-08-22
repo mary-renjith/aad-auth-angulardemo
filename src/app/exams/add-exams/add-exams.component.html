@@ -19,12 +19,12 @@
           <p>
             <mat-form-field class="examcName" appearance="fill">
                 <mat-label>Certification Name</mat-label>
-                <input matInput formControlName="examName">
+                <input matInput formControlName="examName" autocomplete="off">
             </mat-form-field>
             
           </p>
           <p>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill"> 
                 <mat-label>Certification Date
                 </mat-label>
                 <input matInput  [matDatepicker]="dp1" formControlName="examDate">
@@ -42,13 +42,13 @@
                 <mat-datepicker #dp2 disabled="false"></mat-datepicker>
             </mat-form-field>
           </p>  
-          <!-- <p>
+          <p>
                 <mat-label> Certificate Upload</mat-label>
                 <br>
-                <input type="file" formControlName="certificateImage"  (change)="onFileSelected($event)" accept="image/*">
+                <input type="file"   (change)="onFileSelected($event)"  [value]="this.image" accept="image/png, image/jpeg">
       
             
-          </p>         -->
+          </p>        
           <p>
                 <button mat-raised-button>Add</button>
            
