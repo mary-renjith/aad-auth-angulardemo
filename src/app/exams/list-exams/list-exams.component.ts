@@ -20,7 +20,7 @@ export class ListExamsComponent implements OnInit {
   listSkills! : any;
   examId: any;
   state:any;
-  displayedColumns = ['examName', 'skillName', 'examDate','expiryDate','CertificateImage','actions'];
+  displayedColumns = ['examName', 'skillName', 'examDate','expiryDate','actions'];
   dataSource = this.listSkills; 
  
 

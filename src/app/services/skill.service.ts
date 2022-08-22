@@ -55,7 +55,7 @@ export class SkillService {
     //const headers = { 'content-type': "application/json"} ;  
     const body=JSON.stringify(examObj);
     console.log(this.baseUrl + 'addExamDetails/' + examObj);
-    return this.http.post(this.baseUrl + 'addExamDetails/' + examObj , body ,httpOptions); 
+    return this.http.post(this.baseUrl + 'addExamDetails/' + body , body ,httpOptions); 
   }
 
   deleteSkill(SkillDetailsId: any ){
