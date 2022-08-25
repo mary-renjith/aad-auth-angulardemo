@@ -20,7 +20,7 @@ export class ListExamsComponent implements OnInit {
   listSkills! : any;
   examId: any;
   state:any;
-  displayedColumns = ['examName', 'skillName', 'examDate','expiryDate','actions'];
+  displayedColumns = ['examName', 'skillName', 'examDate','expiryDate','CertificateImage','actions'];
   dataSource = this.listSkills; 
  
 
@@ -94,6 +94,10 @@ export class ListExamsComponent implements OnInit {
        reader.readAsDataURL(img);
     }
 
+  }
+  viewImage(imgURl:any)
+  {
+    window.open(imgURl);
   }
 
 }

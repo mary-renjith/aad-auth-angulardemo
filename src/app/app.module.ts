@@ -21,10 +21,17 @@ import { LayoutModule } from './layout/layout.module';
 import { ExamsModule } from './exams/exams.module';
 import { SkillsModule } from './skills/skills.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireStorageModule,BUCKET } from '@angular/fire/compat/storage';
+import { environment } from '../environments/environment';
+import { Injectable } from '@angular/core';
+
+
 
 const IsIE=window.navigator.userAgent.indexOf('MSIE')>1
 ||window.navigator.userAgent.indexOf('Trident/')>1
-
+@Injectable({ providedIn: 'root' })
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +54,9 @@ const IsIE=window.navigator.userAgent.indexOf('MSIE')>1
     MatTableModule,
     MatDividerModule,
     MatFormFieldModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
     MsalModule.forRoot(new PublicClientApplication(
       {
         auth:{
@@ -81,8 +91,9 @@ const IsIE=window.navigator.userAgent.indexOf('MSIE')>1
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,
-    useClass:MsalInterceptor,
-    multi:true
+        useClass:MsalInterceptor,
+    multi:true,
+   
 
   },MsalGuard,AzureaddemoService],
   bootstrap: [AppComponent,MsalRedirectComponent]

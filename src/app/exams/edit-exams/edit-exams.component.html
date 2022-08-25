@@ -43,10 +43,11 @@
             </mat-form-field>
           </p>  
           <p>
-                <!-- <mat-label visible="false"> Certificate Upload</mat-label>
+                <mat-label visible="true"> Certificate Upload</mat-label>
                 <br>
-                <input type="file"   (change)="onFileSelected($event)" [value]="this.image" accept="image/png,image/jpeg" visible="false">
-                -->
+                <input type="file" (change)="onFileSelectedEv($event)"  accept="image/png, image/jpeg" visible="true">
+                <BR>
+                <img class="img" src="{{this.defImg}}"  visible="true">
             
           </p>        
           <p>

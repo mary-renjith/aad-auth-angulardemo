@@ -40,22 +40,24 @@ export class SkillService {
   
   }
   addSkill(skillObj: any ){
-    //console.log(skillObj);
+
     const headers = { 'content-type': "application/json"} ;
     const body=JSON.stringify(skillObj);
-    //console.log(body);
-    return this.http.post(this.baseUrl + 'AddSkillDetails/'+body,body,httpOptions);    
+    return this.http.post(this.baseUrl + 'AddSkillDetails/'+body,body,httpOptions); 
+       
   }
 
   addExam(examObj: any ){
-    //console.log(examObj);
+   
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-    //const headers = { 'content-type': "application/json"} ;  
+    const headers = { 'content-type': "application/json"} ;  
+
     const body=JSON.stringify(examObj);
+    console.log(body);
     //console.log(this.baseUrl + 'addExamDetails/' + examObj);
-    return this.http.post(this.baseUrl + 'addExamDetails/' + body , body ,httpOptions); 
+    return this.http.post(this.baseUrl + 'addExamDetails/' + examObj , body ,httpOptions); 
   }
 
   deleteSkill(SkillDetailsId: any ){

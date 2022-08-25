@@ -46,7 +46,7 @@
      <ng-container matColumnDef="CertificateImage">
       <th mat-header-cell *matHeaderCellDef> Certificate </th>
       <td mat-cell *matCellDef="let element"> 
-        <!-- <img mat-card-image src="{{element.CertificateImage}}" visible="true"> -->
+        <img mat-card-image class="img" src="{{element.CertificateImage}}" alt="No Image" (click)="viewImage(element.CertificateImage)" visible="true">
         <!-- <img mat-card-image src="sanitizer.bypassSecurityTrustResourceUrl({{element.CertificateImage}})" > -->
       </td>
     </ng-container>  

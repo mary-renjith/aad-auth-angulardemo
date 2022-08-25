@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import {FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { delay, finalize } from 'rxjs/operators';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -41,6 +43,9 @@ export class EditExamsComponent implements OnInit {
   defExpiryDate:any;
   defImg:any;
   defname: any;
+  downloadURL:any="";
+  refURL: any;
+  url: any;
 
   matcher = new MyErrorStateMatcher();
 
@@ -52,7 +57,8 @@ export class EditExamsComponent implements OnInit {
     private skillService: SkillService,
     private _snackBar: MatSnackBar,
     private _router: Router,
-    private fb: FormBuilder) { 
+    private fb: FormBuilder,
+    private storage: AngularFireStorage) { 
     
     }
    editCertificationForm: FormGroup = new FormGroup({});
@@ -64,9 +70,9 @@ export class EditExamsComponent implements OnInit {
     this.defExamName=history.state.examName;
     this.defExamDate=history.state.examDate;
     this.defExpiryDate=history.state.expiryDate;
-    this.defImg=history.state.certificateImage;
+    this.defImg=history.state.img;
     this.defname=history.state.fname;
-    console.log(this.defname);
+    //console.log(this.defImg);
     //  console.log(this.defskillDetailId,this.defExamDetailId,this.defExamName,this.defExamDate);
     this.editCertificationForm = this.formBuilder.group({
       'ExamDetailId' : new FormControl(this.defExamDetailId),
@@ -75,8 +81,8 @@ export class EditExamsComponent implements OnInit {
       'ExamDate' : new FormControl('',[Validators.required]),
       'ExpiryDate' : new FormControl('',[Validators.required]),
       'ExamName' : new FormControl('',[Validators.required]),
-      'FileName' : new FormControl(this.fileName),
-      'CertificateImage' : new FormControl(this.image),
+      'FileName' : new FormControl("fake.png"),
+      'CertificateImage' : new FormControl(""),
       'UserEmail' : new FormControl("mary.renjith19@gmail.com"),
     }); 
 
@@ -102,11 +108,23 @@ export class EditExamsComponent implements OnInit {
     myReader.readAsDataURL(file);
   }
 
-  editExam()
+  async editExam()
   {
-    //console.log(this.editCertificationForm.valid);
-    this.editCertificationForm.controls['CertificateImage'].setValue(this.image);
-    this.editCertificationForm.controls['FileName'].setValue(this.fileName);
+    console.log(this.fileName);
+    console.log(this.downloadURL);
+    await this.sleep(1000);
+
+    if(this.downloadURL != ""){
+      this.editCertificationForm.controls['CertificateImage'].setValue(this.downloadURL,{onlySelf:true});
+      this.editCertificationForm.controls['FileName'].setValue(this.fileName);
+    
+    }
+    else
+    {
+      this.editCertificationForm.controls['CertificateImage'].setValue(this.defImg,{onlySelf:true});     
+      this.editCertificationForm.controls['FileName'].setValue(this.defname);
+    }
+   
 
     const fromDate = this.editCertificationForm.controls['ExamDate'].value;
     const toDate = this.editCertificationForm.controls['ExpiryDate'].value;
@@ -150,7 +168,39 @@ export class EditExamsComponent implements OnInit {
     }
    
   } 
-  
+  sleep(ms:any) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
+onFileSelectedEv(event:any) {
+    var n = Date.now();
+    const file = event.target.files[0];    
+    this.fileName=file.name;
+    const filePath = `skillportal/${n}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(`skillportal/${n}`, file);
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          //this.downloadURL = fileRef.getDownloadURL();
+          fileRef.getDownloadURL().subscribe(url => {
+            if (url) {
+              this.downloadURL = url;
+            }
+            console.log("test");
+            console.log(this.downloadURL);
+          });
+        })
+      )
+      .subscribe(url => {
+        if (url) {
+          console.log(url);
+        }
+      });
+     
+  }
   someMethod(event:any)
   {
       //console.log(event.value);

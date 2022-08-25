@@ -21,6 +21,15 @@ import {MatNativeDateModule} from '@angular/material/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DeleteExamDialogComponent } from './delete-exam-dialog/delete-exam-dialog.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireStorageModule,BUCKET } from '@angular/fire/compat/storage';
+import { Injectable } from '@angular/core';
+
+
+@Injectable({
+  providedIn: 'root' // just before your class
+})
 
 
 
@@ -47,7 +56,10 @@ import { DeleteExamDialogComponent } from './delete-exam-dialog/delete-exam-dial
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AngularFireModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule
   ],
   providers:[
    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration:2500}} 
